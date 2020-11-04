@@ -8,15 +8,22 @@ interface Request {
   title: string;
   value: number;
   type: 'income' | 'outcome';
+  category_id: string;
 }
 class CreateTransactionService {
-  public async execute({ title, value, type }: Request): Promise<Transaction> {
+  public async execute({
+    title,
+    value,
+    type,
+    category_id,
+  }: Request): Promise<Transaction> {
     const transactionRespository = getCustomRepository(TransactionRepository);
 
     const transaction = transactionRespository.create({
       title,
       value,
       type,
+      category_id,
     });
 
     if (!['income', 'outcome'].includes(type)) {
